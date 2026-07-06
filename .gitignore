@@ -9,6 +9,11 @@ wheels/
 # Virtual environments
 .venv
 ai/.env
+
+# uv binaries
+uv.exe
+uvw.exe
+uvx.exe
 test/*
 .idea/
 .cursorrules
