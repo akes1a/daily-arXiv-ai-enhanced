@@ -58,8 +58,8 @@ uv sync
 export OPENAI_API_KEY="your-api-key-here"          # 必需：LLM API Key
 export OPENAI_BASE_URL="https://api.openai.com/v1" # 可选：API 代理地址
 export LANGUAGE="Chinese"                          # 输出语言
-export CATEGORIES="cs.CV, cs.CL"                   # 关注的 arXiv 分类
-export MODEL_NAME="deepseek-chat"                  # 使用的 LLM 模型
+export CATEGORIES="cs.RO"                          # 关注的 arXiv 分类
+export MODEL_NAME="v4 flash"                       # 使用的 LLM 模型
 export TOKEN_GITHUB="ghp_xxx"                      # 可选：GitHub 代码链接检测
 ```
 
@@ -208,7 +208,7 @@ daily-arXiv/
 
 ```
 Spider 初始化：
-  1. 从环境变量 CATEGORIES 读取目标分类列表（如 "cs.CV, cs.CL"）
+  1. 从环境变量 CATEGORIES 读取目标分类列表（如 "cs.RO"）
   2. 构造 start_urls: ["arxiv.org/list/cs.CV/new", "arxiv.org/list/cs.CL/new"]
   3. 将分类转为集合 self.target_categories 用于后续交集判断
 
@@ -397,7 +397,7 @@ arxiv:
     - cs.MA
 
 llm:
-  model_name: 'deepseek-chat'
+  model_name: 'v4 flash'
 ```
 
 **文件 `.github/workflows/run.yml`（只改一处）：**

@@ -22,6 +22,23 @@ from langchain.prompts import (
 )
 from structure import Structure
 
+DEFAULT_MODEL_NAME = "v4 flash"
+MODEL_NAME_ALIASES = {
+    "v4 pro": DEFAULT_MODEL_NAME,
+    "v4-pro": DEFAULT_MODEL_NAME,
+    "v4_pro": DEFAULT_MODEL_NAME,
+    "v4 falsh": DEFAULT_MODEL_NAME,
+    "v4-falsh": DEFAULT_MODEL_NAME,
+    "v4_falsh": DEFAULT_MODEL_NAME,
+}
+
+
+def normalize_model_name(model_name: str) -> str:
+    """Normalize legacy model names and common typos."""
+    normalized = (model_name or DEFAULT_MODEL_NAME).strip()
+    return MODEL_NAME_ALIASES.get(normalized.lower(), normalized)
+
+
 if os.path.exists('.env'):
     dotenv.load_dotenv()
 template = open("template.txt", "r").read()
@@ -216,7 +233,7 @@ def process_all_items(data: List[Dict], model_name: str, language: str, max_work
 
 def main():
     args = parse_args()
-    model_name = os.environ.get("MODEL_NAME", 'deepseek-chat')
+    model_name = normalize_model_name(os.environ.get("MODEL_NAME", DEFAULT_MODEL_NAME))
     language = os.environ.get("LANGUAGE", 'Chinese')
 
     # 检查并删除目标文件

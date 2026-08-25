@@ -23,8 +23,8 @@ if [ -z "$OPENAI_API_KEY" ]; then
     echo "🔧 可选变量 / Optional variables:"
     echo "   export OPENAI_BASE_URL=\"https://api.openai.com/v1\"  # API基础URL / API base URL"
     echo "   export LANGUAGE=\"Chinese\"                           # 语言设置 / Language setting"
-    echo "   export CATEGORIES=\"cs.CV, cs.CL\"                    # 关注分类 / Categories of interest"
-    echo "   export MODEL_NAME=\"gpt-4o-mini\"                     # 模型名称 / Model name"
+    echo "   export CATEGORIES=\"cs.RO\"                           # 关注分类 / Categories of interest"
+    echo "   export MODEL_NAME=\"v4 flash\"                       # 模型名称 / Model name"
     echo ""
     echo "💡 设置后重新运行此脚本即可进行完整测试 / After setting, rerun this script for complete testing"
     echo "🚀 或者继续运行部分流程（爬取+去重检查）/ Or continue with partial workflow (crawl + dedup check)"
@@ -42,7 +42,12 @@ else
     # 设置默认值 / Set default values
     export LANGUAGE="${LANGUAGE:-Chinese}"
     export CATEGORIES="${CATEGORIES:-cs.RO}"
-    export MODEL_NAME="${MODEL_NAME:-gpt-4o-mini}"
+    export MODEL_NAME="${MODEL_NAME:-v4 flash}"
+    case "$MODEL_NAME" in
+        "v4 pro"|"v4-pro"|"v4_pro"|"v4 falsh"|"v4-falsh"|"v4_falsh")
+            MODEL_NAME="v4 flash"
+            ;;
+    esac
     export OPENAI_BASE_URL="${OPENAI_BASE_URL:-https://api.openai.com/v1}"
     
     echo "🔧 当前配置 / Current configuration:"
