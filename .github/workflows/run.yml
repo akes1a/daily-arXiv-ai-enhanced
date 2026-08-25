@@ -21,6 +21,18 @@ jobs:
       run: |
         curl -LsSf https://astral.sh/uv/install.sh | sh
         uv sync
+
+    - name: Restore historical data for deduplication
+      run: |
+        echo "恢复 data 分支历史数据用于去重... / Restoring historical data from data branch for deduplication..."
+        if git ls-remote --heads origin data | grep -q "refs/heads/data"; then
+          git fetch origin data
+          git checkout origin/data -- data || true
+          git checkout origin/data -- assets/file-list.txt || true
+          echo "历史数据恢复完成 / Historical data restored"
+        else
+          echo "data 分支不存在，跳过历史数据恢复 / Data branch does not exist, skipping restore"
+        fi
         
     - name: Crawl arXiv papers
       id: crawl_step
